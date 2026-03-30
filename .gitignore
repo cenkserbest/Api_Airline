@@ -1,0 +1,26 @@
+# Mühim ve Gizli Dosyalar (Asla Yüklenmeyecekler!)
+.env
+airline_api/.env
+api_gateway/.env
+
+# Sanal Ortamlar ve IDE Ayarları
+.venv/
+venv/
+env/
+.vscode/
+.idea/
+
+# K6 Programı (GitHub'ı Şişirir, Gönderilmez!)
+k6.zip
+k6-*/
+k6.exe
+
+# Sistem Çöpleri ve Derleme Logları
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+*.DS_Store
+Thumbs.db
+output.log
+az_test.log

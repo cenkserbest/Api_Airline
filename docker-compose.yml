@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  # The Backend Airline Service
+  airline-api:
+    build: 
+      context: .
+      dockerfile: Dockerfile.airline
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL=sqlite:///./airline_docker.db
+      - SECRET_KEY=supersecretkey999
+
+  # The API Gateway Service
+  api-gateway:
+    build: 
+      context: .
+      dockerfile: Dockerfile.gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - AIRLINE_API_URL=http://airline-api:8001
+    depends_on:
+      - airline-api
