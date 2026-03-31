@@ -21,6 +21,13 @@ The system employs a **Microservices-inspired Architecture** combined with an **
 2. **Airline Backend (`airline_api/`)**: Built with **FastAPI** for maximal asynchronous performance, adhering to strict data schemas via **Pydantic**.
 3. **Database Layer**: Managed by **SQLAlchemy ORM** interacting with a Cloud PostgreSQL Database (**Neon.tech**) using a Serverless Connection Pooler to prevent connection drops during peak loads.
 
+### 🛠️ Technical Gateway Implementation
+The API Gateway acts as a "bridge" between the user and our backend service. Here is how it works in simple terms:
+- **Catch-All Routing**: We use a special `{path:path}` route. This means the gateway automatically finds and catches any URL you send. It then forwards it to the backend immediately.
+- **Request Proxying**: We use a technology called `httpx` to send your request (headers, body, and query) to the backend. It works like a mirror, sending your data to the correct place.
+- **Smart Rate Limiting**: We specifically limited the `/api/v1/flights` route to **3 requests per day** for search operations. Other requests (like buying tickets) are passed through the catch-all route without these limits.
+- **Unified Documentation**: The gateway also "copies" the backend's API documentation (Swagger). This allows you to test all endpoints from a single, easy-to-use URL.
+
 ## 🤔 Assumptions & Validation Logic
 During the implementation, the following logical and business assumptions were defined:
 - **Parameter Naming Contexts (`date-from` vs `date-to`):** We intentionally kept the exact parameter names from the assignment document, which means they serve entirely different purposes depending on the endpoint:
